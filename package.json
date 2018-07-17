@@ -1,0 +1,27 @@
+{
+  "name": "airports",
+  "version": "1.0.0",
+  "description": "Provides a queriable airports API.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caseyfw/airports.git"
+  },
+  "keywords": [
+    "airports",
+    "api",
+    "node"
+  ],
+  "author": "Casey Fulton <casey@caseyfulton.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/caseyfw/airports/issues"
+  },
+  "homepage": "https://github.com/caseyfw/airports#readme",
+  "dependencies": {
+    "restify": "^6.3.4"
+  }
+}
