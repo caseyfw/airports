@@ -20,6 +20,10 @@ var server = restify.createServer();
 server.get("/airports", getAirports);
 server.get("/airport/:code", getAirport);
 server.get("/cities", getCities);
+server.get("/", (req, res, next) => {
+  res.send({"ok": true, "message": "Try /airports"});
+  next();
+});
 
 server.listen(8080, function() {
   console.log("%s listening at %s", server.name, server.url);
