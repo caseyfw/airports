@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: airports
+  namespace: webworks
+spec:
+  selector:
+    matchLabels:
+      app: airports
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: airports
+    spec:
+      containers:
+        - name: airports
+          image: caseyfw/airports
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: airports
+              mountPath: /usr/src/app/airports.json
+              subPath: airports.json
+      volumes:
+        - name: airports
+          configMap:
+            name: airports
