@@ -16,10 +16,16 @@ function getCities(req, res, next) {
   next();
 }
 
+function getCity(req, res, next) {
+  airports.city(req.params.code, city => res.send(city));
+  next();
+}
+
 var server = restify.createServer();
 server.get("/airports", getAirports);
 server.get("/airport/:code", getAirport);
 server.get("/cities", getCities);
+server.get("/city/:code", getCity);
 server.get("/", (req, res, next) => {
   res.send({"ok": true, "message": "Try /airports"});
   next();
