@@ -1,5 +1,5 @@
-var restify = require('restify'),
-  airports = require('./airports.js');
+var restify = require("restify"),
+  airports = require("./airports.js");
 
 function getAirports(req, res, next) {
   airports.airports(airports => res.send(airports || 404));
@@ -27,7 +27,7 @@ server.get("/airport/:code", getAirport);
 server.get("/cities", getCities);
 server.get("/city/:code", getCity);
 server.get("/", (req, res, next) => {
-  res.send({"ok": true, "message": "Try /airports"});
+  res.send({ ok: true, message: "Try /airports" });
   next();
 });
 

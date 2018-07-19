@@ -18,14 +18,14 @@ exports.cities = callback => {
 
 exports.city = (code, callback) => {
   let airport = airports.find(airport => airport.city.code === code);
-  let city = airport ? Object.assign({}, airport.city) : undefined;
+  let city = airport ? { ...airport.city } : undefined;
 
   if (city) {
     // Decorate city with list of associated airports, sans their city property.
     city.airports = [];
     airports
       .filter(airport => airport.city.code === code)
-      .forEach(airport => city.airports.push(Object.assign({}, airport)));
+      .forEach(airport => city.airports.push({ ...airport }));
     city.airports.forEach(airport => delete airport.city);
   }
   callback(city);
