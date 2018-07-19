@@ -2,22 +2,22 @@ var restify = require('restify'),
   airports = require('./airports.js');
 
 function getAirports(req, res, next) {
-  airports.airports(airports => res.send(airports));
+  airports.airports(airports => res.send(airports || 404));
   next();
 }
 
 function getAirport(req, res, next) {
-  airports.airport(req.params.code, airport => res.send(airport));
+  airports.airport(req.params.code, airport => res.send(airport || 404));
   next();
 }
 
 function getCities(req, res, next) {
-  airports.cities(cities => res.send(cities));
+  airports.cities(cities => res.send(cities || 404));
   next();
 }
 
 function getCity(req, res, next) {
-  airports.city(req.params.code, city => res.send(city));
+  airports.city(req.params.code, city => res.send(city || 404));
   next();
 }
 
