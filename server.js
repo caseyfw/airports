@@ -1,31 +1,38 @@
 var restify = require("restify"),
-  airports = require("./airports.js");
+  service = require("./service.js");
+
+var airports = require(process.env.AIRPORTS_JSON_PATH || "./airports.json"),
+  config = require(process.env.CONFIG_JSON_PATH || "./config.json");
 
 function getAirports(req, res, next) {
-  airports.airports(airports => res.send(airports || 404));
+  config = { ...config, brand: req.params.brand, country: req.params.country };
+  res.send(service.getAirports(airports, config) || 404);
   next();
 }
 
 function getAirport(req, res, next) {
-  airports.airport(req.params.code, airport => res.send(airport || 404));
+  config = { ...config, brand: req.params.brand, country: req.params.country };
+  res.send(service.getAirport(airports, config, req.params.code) || 404);
   next();
 }
 
 function getCities(req, res, next) {
-  airports.cities(cities => res.send(cities || 404));
+  config = { ...config, brand: req.params.brand, country: req.params.country };
+  res.send(service.getCities(airports, config) || 404);
   next();
 }
 
 function getCity(req, res, next) {
-  airports.city(req.params.code, city => res.send(city || 404));
+  config = { ...config, brand: req.params.brand, country: req.params.country };
+  res.send(service.getCity(airports, config, req.params.code) || 404);
   next();
 }
 
 var server = restify.createServer();
-server.get("/airports", getAirports);
-server.get("/airport/:code", getAirport);
-server.get("/cities", getCities);
-server.get("/city/:code", getCity);
+server.get("/:brand/:country/airports", getAirports);
+server.get("/:brand/:country/airport/:code", getAirport);
+server.get("/:brand/:country/cities", getCities);
+server.get("/:brand/:country/city/:code", getCity);
 server.get("/", (req, res, next) => {
   res.send({ ok: true, message: "Try /airports" });
   next();
