@@ -11,11 +11,9 @@ exports.handler = (event, context, callback) => {
     return;
   }
 
-  let brand = pathParts[0],
-    country = pathParts[1],
-    request = pathParts[2];
+  let [brand, country, request] = pathParts;
 
-  config = { ...config, brand: brand, country: country };
+  config = { ...config, brand, country };
 
   let result = undefined;
 
