@@ -4,10 +4,10 @@ var airports = require(process.env.AIRPORTS_JSON_PATH || "./airports.json"),
   config = require(process.env.CONFIG_JSON_PATH || "./config.json");
 
 exports.handler = (event, context, callback) => {
-  let pathParts = event.path.replace(/^\/|\/$/g, '').split("/");
+  let pathParts = event.path.replace(/^\/|\/$/g, "").split("/");
 
   if (pathParts.length < 3) {
-    callback(null, { statusCode: 200, body: "Not enough path bits." });
+    callback(null, { statusCode: 404 });
     return;
   }
 
@@ -22,13 +22,13 @@ exports.handler = (event, context, callback) => {
       result = service.getAirports(airports, config);
       break;
     case "airport":
-      result = service.getAirport(airports, config, pathParts[3] || "");
+      result = service.getAirport(airports, config, request || "");
       break;
     case "cities":
       result = service.getCities(airports, config);
       break;
     case "city":
-      result = service.getCity(airports, config, pathParts[3] || "");
+      result = service.getCity(airports, config, request || "");
       break;
   }
 
